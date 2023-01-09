@@ -7,7 +7,9 @@
 }
 
 
-
+.collapse:not(.show) {
+    display: block !important;
+}
 
 .container-fluid {
     height: calc(100vh - 11vh);

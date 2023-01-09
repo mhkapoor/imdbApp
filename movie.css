@@ -6,7 +6,9 @@
     height: 70px;
 }
 
-
+.collapse:not(.show) {
+    display: block !important;
+}
 
 
 .container-fluid {

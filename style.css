@@ -90,6 +90,10 @@ p{
     background-color: grey;
 }
 
+.collapse:not(.show) {
+    display: block !important;
+}
+
 @media (max-width: 812px){
     .container-fluid{
         /*  */
