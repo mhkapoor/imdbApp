@@ -32,7 +32,7 @@ function displayMovieDetail(details){
                
     </div>
     `
-  
+    resultGrid.classList.add("result-container-display");
   
 }
 
