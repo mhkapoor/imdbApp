@@ -2,10 +2,8 @@
 const movieSearchBox =  document.getElementById("search-box");
 const searchList = document.getElementById('search-list');
 const resultGrid = document.getElementById('result-container');
-
+let favoriteMovie;
 let clear ;
-
-
 
 
 async function loadMovies(searchTerm){
@@ -35,15 +33,27 @@ async function findMovies(){
         searchList.classList.add('hide-search-list');
     }
 }
-
 setInterval(()=>{
     clear?.addEventListener('click',()=>{
-        console.log("inside")
         resultGrid.innerHTML="";
         resultGrid.classList.remove("result-container-display");
-    })  
+    }) 
+    favoriteMovie?.addEventListener('click',()=>{
+        let favoriteID = JSON.parse(localStorage.getItem("id"));
+        let data = localStorage.getItem("favorites")?JSON.parse(localStorage.getItem("favorites")):[];
+        const result = data.filter(item=>item==favoriteID)
+        if(result.length==0){
+            data.push(favoriteID);
+            localStorage.setItem('favorites',JSON.stringify(data));
+            favoriteMovie.classList.add('disabled');
+        }
+    })
 
 },1000)
+
+function selectMovie(id){
+    localStorage.setItem("movieItem",id)
+}
 
 function displayMovieList(movies){
     searchList.innerHTML = "";
@@ -72,6 +82,7 @@ function displayMovieList(movies){
     loadMovieDetails()
 }
 
+
 function loadMovieDetails(){
     const searchListMovies = searchList.querySelectorAll(`
     .search-list-item`);
@@ -81,17 +92,22 @@ function loadMovieDetails(){
             movieSearchBox.value="";
             const result = await fetch(`http://www.omdbapi.com/?i=${movie.dataset.id}&apikey=7cadacdc`)
             const movieDetails = await result.json();
-            displayMovieDetail(movieDetails);
+           
+            localStorage.setItem("id",JSON.stringify(movie.dataset.id));
+            
+            displayMovieDetail(movieDetails,movie.dataset.id);
         })
     })
 }
 
-function displayMovieDetail(details){
+
+function displayMovieDetail(details,id){
     resultGrid.innerHTML=` 
     <div class="movie-poster">
-    <div id="clear" class="clear" style="color:white;margin:10px;">Clear</div>
-        <img style="height:400px; width: 400px;" src=${details.Poster!="N/A"?details.Poster:"./images/no-image-icon.png"} alt="poster">
-        </div>
+     <div id="clear" class="clear" style="color:white;margin:10px;">Clear</div>
+       <a href="movie.html" onclick="selectMovie('${id}')"><img style="height:400px; width: 400px;" src=${details.Poster!="N/A"?details.Poster:"./images/no-image-icon.png"} alt="poster">
+        </a>
+       </div>
         <div class="movie-info text-center pt-4">
             <h3 class="movie-title d-flex justify-content-center">
                 ${details.Title}
@@ -107,16 +123,26 @@ function displayMovieDetail(details){
                 <p class="plot"> <b>Plot:</b>${details.Plot}</p>
                 <p class="language"> <i style="color: #dc5c5c;">Language: ${details.Language}</i></p>
                 <p class="awards"><i class='fas fa-award' style='font-size:48px;color:red'></i>${details.Awards}</p>
+                <button id="favorite" class="favorite">favorite</button>
     </div>
     `
-    resultGrid.classList.add("result-container-display");
+    favoriteMovie = document.getElementById('favorite');
+    let favoriteID = JSON.parse(localStorage.getItem("id"));
+    let data = localStorage.getItem("favorites")?JSON.parse(localStorage.getItem("favorites")):[];
+    const result1 = data.filter(item=>item==favoriteID)
+    console.log(result1.length);
+    if(result1.length>0){
+        favoriteMovie.classList.add('disabled');
+    }
+   resultGrid.classList.add("result-container-display");
    clear =  document.getElementById("clear");
-
+  
 }
 
-movieSearchBox.addEventListener('input', (e) => {
+movieSearchBox?.addEventListener('input', (e) => {
     findMovies()
-  });
+});
+
 
 
 

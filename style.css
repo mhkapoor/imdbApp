@@ -52,7 +52,7 @@
 ul{
     padding: 0px;;
 }
-li{
+.movie-misc-info li{
     margin:5px;
     color:white;
     max-width: 28%;
@@ -78,6 +78,16 @@ p{
 }
 .result-container{
     height: 80vh;
+}
+.favorite{
+    color: white;
+    background:#dc5c5c;
+    border-radius: 10px;
+    /* border: 1px; */
+}
+.disabled{
+    pointer-events: none;
+    background-color: grey;
 }
 
 @media (max-width: 812px){

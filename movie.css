@@ -1,0 +1,15 @@
+.navbar{
+    justify-content:normal !important;
+    width: 100% !important;
+}
+.img-wrapper{
+    height: 70px;
+}
+
+
+
+
+.container-fluid {
+    height: calc(100vh - 11vh);
+    background-color: #343a40;
+}

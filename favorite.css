@@ -1,0 +1,47 @@
+.navbar{
+    justify-content:normal !important;
+    width: 100% !important;
+}
+.img-wrapper{
+    height: 70px;
+}
+
+
+
+
+.container-fluid {
+    height: calc(100vh - 11vh);
+    background-color: #343a40;
+}
+
+.no-data{
+    color: white;
+    width: 100vw;
+    justify-content: center;
+    height: 80vh;
+    align-items: center;
+    font-size: 30px;
+}
+
+.movie-poster img{
+    height: 40%;
+    width: 40%;
+}
+.movie-info{
+    width: 40%;
+    color:white
+}
+
+.movie-detail{
+    width: 50%;
+    margin-top: 20px;
+}
+.movie-misc-info{
+    list-style: none;
+}
+
+.remove{
+    color: white;
+    background:#dc5c5c;
+    border-radius: 10px;
+}
